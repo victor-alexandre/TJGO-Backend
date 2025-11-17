@@ -1,0 +1,9 @@
+# Dependências do Node
+node_modules/
+
+# Arquivo do Banco de Dados SQLite
+dev.sqlite
+
+# Logs e arquivos de ambiente
+.env
+npm-debug.log
