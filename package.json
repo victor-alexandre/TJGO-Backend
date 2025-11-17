@@ -4,9 +4,9 @@
   "description": "Repositório com as atividades feitas na Disciplina de Backend da UFG em colab com o TJGO",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "sync": "node src/sync.js"
   },
   "repository": {
     "type": "git",

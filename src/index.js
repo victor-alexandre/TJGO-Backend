@@ -13,14 +13,14 @@ app.get('/', (req, res) => {
 
 async function iniciarServidor() {
     try {
-        await sequelize.sync({ force: true });
-        console.log('Banco de dados sincronizado com sucesso.');
+        await sequelize.authenticate();
+        console.log('Conexão com o banco estabelecida.');
 
         app.listen(PORTA, () => {
             console.log(`Servidor rodando na porta ${PORTA}`);
         });
     } catch (error) {
-        console.error('Erro ao sincronizar o banco de dados:', error);
+        console.error('Erro ao conectar no banco:', error);
     }
 }
 
