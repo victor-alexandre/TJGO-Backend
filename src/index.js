@@ -2,6 +2,8 @@
 
 const express = require('express');
 const { sequelize } = require('./models');
+const pedidosRoutes = require('./routes/pedidosRoutes');
+
 const app = express();
 const PORTA = 3000;
 
@@ -10,6 +12,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('API Garçom Eletrônico no ar!');
 });
+
+app.use('/pedidos', pedidosRoutes);
 
 async function iniciarServidor() {
     try {
