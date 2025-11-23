@@ -2,6 +2,31 @@
 
 Repositório com as atividades feitas na Disciplina de Backend da UFG em colaboração com o TJGO. O sistema consiste numa API REST para gerenciar o fluxo de pedidos, mesas e pagamentos de um restaurante.
 
+### 📑 Índice
+
+* [📝 Organização do Documento](#-organização-do-documento)
+* [👥 Membros do Grupo](#-membros-do-grupo)
+* [🛠️ Tecnologias Utilizadas](#-tecnologias-utilizadas)
+* [📋 Estrutura do Projeto](#-estrutura-do-projeto)
+* [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
+* [📖 Testando a API (Swagger)](#-testando-a-api-swagger)
+* [🧪 Testando a API (Postman/Insomnia)](#-testando-a-api-postman-insomnia)
+* [📅 Cronograma de Desenvolvimento](#-cronograma-de-desenvolvimento)
+* [📌 Status das Rotas da API](#-status-das-rotas-da-api)
+
+---
+
+## 📝 Organização do Documento
+
+Este README foi estruturado para guiar desde a apresentação do time até o acompanhamento técnico do projeto:
+
+1.  **Visão Geral:** Apresentação do time e *stack* tecnológica.
+2.  **Guia Técnico:** Arquitetura de pastas e passo a passo para instalação, população do banco (*seed*) e execução.
+3.  **Testes:** Instruções para consumir a API via Swagger (Documentação Interativa) ou ferramentas externas.
+4.  **Gestão do Projeto:** Tabelas de controle que monitoram o cronograma geral e o status específico de implementação de cada *endpoint*.
+
+---
+
 ## 👥 Membros do Grupo
 
 - [José Solenir Lima Figuerêdo](https://github.com/Solenir)
@@ -17,8 +42,7 @@ Repositório com as atividades feitas na Disciplina de Backend da UFG em colabor
 - **Express**: Framework web para criação da API.
 - **Sequelize**: ORM para modelagem e interação com o banco de dados.
 - **SQLite**: Banco de dados relacional (arquivo local para desenvolvimento).
-- **Swagger**: Ferramenta para documentação e testes interativos.
-
+- **Swagger**: Ferramenta para documentação e testes interativos da API.
 
 ---
 
@@ -38,7 +62,6 @@ A aplicação segue o padrão MVC (Model-View-Controller), focando na camada de 
 │   └── seed.js         # Script para popular o banco com dados de teste
 ├── dev.sqlite          # Arquivo do banco de dados (gerado automaticamente)
 └── package.json        # Dependências e scripts
-
 
 
 ## 🚀 Como Executar o Projeto
