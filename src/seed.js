@@ -99,29 +99,33 @@ async function seed() {
             contaId: conta.id
         });
 
-        // Fazer um Pedido
+        // Fazer um Pedido (CORRIGIDO STATUS)
         const pedido = await Pedido.create({
             contaId: conta.id,
             clienteId: cliente.id,
             horarioPedido: new Date(),
-            status: 'Preparando'
+            status: 'PENDENTE' // Padrão atualizado conforme nossa regra de negócio
         });
+
+        // CORREÇÃO DE SEGURANÇA PARA O ID
+        // Garante que pegamos o ID correto independente se o model chama de 'id' ou 'numero'
+        const pedidoId = pedido.id || pedido.numero;
 
         // Adicionar itens ao pedido (Tabela Pivot ItemPedido)
         // Maria pediu 2 Cocas e 1 Prato Feito
         await ItemPedido.create({
-            pedidoId: pedido.numero,
+            pedidoId: pedidoId, 
             itemCardapioId: coca.id,
             quantidade: 2
         });
 
         await ItemPedido.create({
-            pedidoId: pedido.numero,
+            pedidoId: pedidoId,
             itemCardapioId: pratoFeito.id,
             quantidade: 1
         });
 
-        // 7. Registrar o Pagamento da Conta (Novo!)
+        // 7. Registrar o Pagamento da Conta
         await Pagamento.create({
             tipo: 'Cartao',
             nro_transacao: 987654321,
@@ -131,7 +135,7 @@ async function seed() {
         console.log('--------------------------------------------------');
         console.log('✅ Seed realizado com sucesso!');
         console.log('   - Restaurante, Funcionários e Cardápio criados.');
-        console.log('   - Mesa 1: Pedidos feitos e Pagamento registrado.');
+        console.log(`   - Pedido #${pedidoId} criado com status PENDENTE.`);
         console.log('--------------------------------------------------');
 
     } catch (error) {

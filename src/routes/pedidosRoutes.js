@@ -62,6 +62,8 @@ const router = express.Router();
  *     description: Gerenciamento de pedidos
  */
 
+// --- ROTAS ---
+
 /**
  * @swagger
  * /pedidos:
@@ -101,5 +103,82 @@ router.post("/", PedidoController.criar);
  *                 $ref: '#/components/schemas/Pedido'
  */
 router.get("/", PedidoController.listar);
+
+/**
+ * @swagger
+ * /pedidos/{id}:
+ *   put:
+ *     summary: Atualiza dados de um pedido
+ *     tags: [Pedidos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do pedido
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               status:
+ *                 type: string
+ *               horarioEntrega:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Pedido atualizado
+ *       404:
+ *         description: Pedido não encontrado
+ */
+router.put("/:id", PedidoController.atualizar);
+
+/**
+ * @swagger
+ * /pedidos/{id}:
+ *   delete:
+ *     summary: Cancela um pedido (se ainda não enviado à cozinha)
+ *     tags: [Pedidos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do pedido
+ *     responses:
+ *       200:
+ *         description: Pedido cancelado com sucesso
+ *       409:
+ *         description: Conflito - Não é possível cancelar pedido já em preparo
+ *       404:
+ *         description: Pedido não encontrado
+ */
+router.delete("/:id", PedidoController.remover);
+
+/**
+ * @swagger
+ * /pedidos/{id}/enviar-cozinha:
+ *   post:
+ *     summary: Envia o pedido para a cozinha (Muda status para EM_PREPARO)
+ *     tags: [Pedidos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do pedido
+ *     responses:
+ *       200:
+ *         description: Pedido enviado com sucesso
+ *       404:
+ *         description: Pedido não encontrado
+ */
+router.post("/:id/enviar-cozinha", PedidoController.enviarCozinha);
 
 module.exports = router;
