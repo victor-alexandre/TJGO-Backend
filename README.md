@@ -62,7 +62,7 @@ A aplicação segue o padrão MVC (Model-View-Controller), focando na camada de 
 │   └── seed.js         # Script para popular o banco com dados de teste
 ├── dev.sqlite          # Arquivo do banco de dados (gerado automaticamente)
 └── package.json        # Dependências e scripts
-
+```
 
 ## 🚀 Como Executar o Projeto
 
