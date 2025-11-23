@@ -64,6 +64,8 @@ A aplicação segue o padrão MVC (Model-View-Controller), focando na camada de 
 └── package.json        # Dependências e scripts
 ```
 
+---
+
 ## 🚀 Como Executar o Projeto
 
 1. Pré-requisitos
@@ -99,6 +101,8 @@ npm run dev
 
 O servidor iniciará em: http://localhost:3000
 
+---
+
 ## 📖 Testando a API (Swagger)
 
 A maneira mais fácil de visualizar e testar as rotas disponíveis é através do **Swagger UI**.
@@ -111,6 +115,8 @@ Lá você poderá:
 - Visualizar todos os endpoints disponíveis.
 - Consultar os esquemas de dados (JSON) esperados.
 - **Testar as requisições ("Try it out")** diretamente pelo navegador sem precisar de ferramentas externas.
+
+---
 
 ## 🧪 Testando a API (Postman, Insomnia)
 
