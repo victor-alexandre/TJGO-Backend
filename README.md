@@ -68,7 +68,20 @@ npm run dev
 
 O servidor iniciará em: http://localhost:3000
 
-## 🧪 Testando a API
+## 📖 Testando a API (Swagger)
+
+A maneira mais fácil de visualizar e testar as rotas disponíveis é através do **Swagger UI**.
+
+Com o servidor rodando, acesse em seu navegador:
+
+👉 **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)**
+
+Lá você poderá:
+- Visualizar todos os endpoints disponíveis.
+- Consultar os esquemas de dados (JSON) esperados.
+- **Testar as requisições ("Try it out")** diretamente pelo navegador sem precisar de ferramentas externas.
+
+## 🧪 Testando a API (Postman, Insomnia)
 
 Com o servidor rodando, você pode verificar se está ativo acessando a rota raiz no seu navegador ou Postman/Insomnia:
 
