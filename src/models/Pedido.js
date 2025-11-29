@@ -4,7 +4,7 @@
 // Representa um Pedido feito para a cozinha.
 module.exports = (sequelize, DataTypes) => {
     const Pedido = sequelize.define('Pedido', {
-        numero: {
+        id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -25,6 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: false
     });
-    
+
     return Pedido;
 };

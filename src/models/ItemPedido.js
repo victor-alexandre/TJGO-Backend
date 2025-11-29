@@ -3,6 +3,11 @@
 // Ela armazena a quantidade de cada item em um pedido.
 module.exports = (sequelize, DataTypes) => {
     const ItemPedido = sequelize.define('ItemPedido', {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         quantidade: {
             type: DataTypes.FLOAT,
             allowNull: false,
