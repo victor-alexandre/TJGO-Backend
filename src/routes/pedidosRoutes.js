@@ -181,4 +181,9 @@ router.delete("/:id", PedidoController.remover);
  */
 router.post("/:id/enviar-cozinha", PedidoController.enviarCozinha);
 
+router.post("/:id/itens", PedidoController.adicionarItem);
+router.post("/:id/adicionais", PedidoController.adicionarAdicional);
+router.put("/:id/adicionais/:addId", PedidoController.atualizarAdicional);
+router.delete("/:id/adicionais/:addId", PedidoController.removerAdicional);
+
 module.exports = router;
