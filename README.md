@@ -184,12 +184,12 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 | GET | `/itens-cardapio/disponiveis` | Lista apenas itens com estoque > 0 | ⏳ A Fazer |
 
 ### 4. Cozinha (KDS)
-| Método | Rota | Lógica / Descrição | Status |
+| Método | Rota | Lógica / Descrição | Resp. | Status |
 | :--- | :--- | :--- | :--- |
-| GET | `/cozinha/pedidos/pendentes` | Lista fila de produção (novos e em espera) | ⏳ A Fazer |
-| PATCH | `/cozinha/pedidos/:id/iniciar` | Marca status como "Em Preparação" | ⏳ A Fazer |
-| PATCH | `/cozinha/pedidos/:id/pronto` | Avisa garçom que está pronto para entrega | ⏳ A Fazer |
-| PATCH | `/cozinha/pedidos/:id/entregar` | Finaliza o ciclo do pedido (Entregue) | ⏳ A Fazer |
+| GET | `/cozinha/pedidos/pendentes` | Lista fila de produção (novos e em espera) | Solenir | ✅ OK |
+| PATCH | `/cozinha/pedidos/:id/iniciar` | Marca status como "Em Preparação" | Solenir | ✅ OK |
+| PATCH | `/cozinha/pedidos/:id/pronto` | Avisa garçom que está pronto para entrega | Solenir | ✅ OK |
+| PATCH | `/cozinha/pedidos/:id/entregar` | Finaliza o ciclo do pedido (Entregue) | Solenir | ✅ OK |
 
 ### 5. Mesa & Conta
 | Método | Rota | Lógica / Descrição | Status |
