@@ -22,7 +22,9 @@ app.get('/', (req, res) => {
     res.send('API Garçom Eletrônico no ar! Acesse <a href="/api-docs">/api-docs</a> para ver a documentação.');
 });
 
+//ROTAS
 app.use('/pedidos', pedidosRoutes);
+app.use('/itens-cardapio', itemCardapioRoutes);
 
 async function iniciarServidor() {
     try {

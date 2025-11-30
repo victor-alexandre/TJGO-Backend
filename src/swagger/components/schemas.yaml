@@ -64,3 +64,42 @@ components:
         horarioPedido:
           type: string
           format: date-time
+
+# -------------- ITEM CARDAPIO
+
+    ItemCardapioInput:
+      type: object
+      required:
+        - nome
+        - preco
+      properties:
+        nome:
+          type: string
+          example: "Coca-Cola Lata"
+        preco:
+          type: number
+          format: float
+          example: 5.50
+        descricao:
+          type: string
+          example: "350ml gelada"
+        categoria:
+          type: string
+          example: "Bebida"
+        disponivelNaCozinha:
+          type: boolean
+          default: true
+
+    ItemCardapio:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        preco:
+          type: number
+        categoria:
+          type: string
+        disponivelNaCozinha:
+          type: boolean

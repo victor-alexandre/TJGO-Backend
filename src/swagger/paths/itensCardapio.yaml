@@ -1,0 +1,67 @@
+paths:
+  /itens-cardapio:
+    post:
+      summary: Cadastra novo prato/bebida
+      tags: [Cardápio]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCardapioInput'
+      responses:
+        201:
+          description: Item criado com sucesso
+    get:
+      summary: Lista todos os itens (Filtro opcional por categoria)
+      tags: [Cardápio]
+      parameters:
+        - in: query
+          name: categoria
+          schema:
+            type: string
+          description: Filtrar por categoria (ex. Bebida)
+      responses:
+        200:
+          description: Lista retornada
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemCardapio'
+
+  /itens-cardapio/disponiveis:
+    get:
+      summary: Lista apenas itens com estoque/flag ativa
+      tags: [Cardápio]
+      responses:
+        200:
+          description: Lista de disponíveis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemCardapio'
+
+  /itens-cardapio/{id}:
+    put:
+      summary: Atualiza nome, preço ou descrição
+      tags: [Cardápio]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCardapioInput'
+      responses:
+        200:
+          description: Atualizado com sucesso
+        404:
+          description: Item não encontrado
