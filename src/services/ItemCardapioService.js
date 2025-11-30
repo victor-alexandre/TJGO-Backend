@@ -1,20 +1,22 @@
 // src/services/ItemCardapioService.js
-const { ItemCardapio, Sequelize } = require('../models');
-const Op = Sequelize.Op;
+
+const { ItemCardapio } = require('../models');
 
 class ItemCardapioService {
 
     async criar(dados) {
-        // Regra simples: não permitir itens com preço negativo
         if (dados.preco < 0) throw new Error("O preço não pode ser negativo.");
         return await ItemCardapio.create(dados);
     }
 
     async listarTodos(categoria) {
         const where = {};
+        
+        // Se tiver categoria, faz filtro exato (igualdade)
         if (categoria) {
             where.categoria = categoria;
         }
+        
         return await ItemCardapio.findAll({ where });
     }
 
@@ -33,7 +35,6 @@ class ItemCardapioService {
         return await item.update(dados);
     }
     
-    // Método auxiliar caso queira pegar um específico
     async buscarPorId(id) {
         return await ItemCardapio.findByPk(id);
     }
