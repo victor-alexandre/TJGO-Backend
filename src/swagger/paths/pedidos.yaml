@@ -1,0 +1,178 @@
+paths:
+  /pedidos:
+    post:
+      summary: Cria um novo pedido
+      tags: [Pedidos]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PedidoInput'
+      responses:
+        201:
+          description: Pedido criado com sucesso
+        400:
+          description: Dados incompletos
+    get:
+      summary: Lista todos os pedidos
+      tags: [Pedidos]
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+
+  /pedidos/{id}:
+    put:
+      summary: Atualiza dados de um pedido
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                horarioEntrega:
+                  type: string
+                  format: date-time
+      responses:
+        200:
+          description: Atualizado
+        404:
+          description: Pedido não encontrado
+    delete:
+      summary: Cancela um pedido
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: Cancelado com sucesso
+        409:
+          description: Não pode cancelar pedido em preparo
+
+  /pedidos/{id}/enviar-cozinha:
+    post:
+      summary: Envia o pedido para a cozinha
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: Enviado com sucesso
+          
+  /pedidos/{id}/itens:
+    post:
+      summary: Adiciona itens ao pedido
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itens:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ItemPedidoInput'
+      responses:
+        201:
+          description: Itens adicionados
+
+  /pedidos/{id}/adicionais:
+    post:
+      summary: Adiciona adicionais a um item
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - itemPedidoId
+                - adicionais
+              properties:
+                itemPedidoId:
+                  type: integer
+                adicionais:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AdicionalInput'
+      responses:
+        201:
+          description: Adicionais criados
+
+  /pedidos/{id}/adicionais/{addId}:
+    put:
+      summary: Atualiza quantidade de adicional
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+        - in: path
+          name: addId
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantidade: { type: integer }
+      responses:
+        200:
+          description: Atualizado
+    delete:
+      summary: Remove adicional
+      tags: [Pedidos]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+        - in: path
+          name: addId
+          required: true
+          schema: { type: integer }
+      responses:
+        200:
+          description: Removido

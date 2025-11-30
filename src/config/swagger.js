@@ -16,7 +16,11 @@ const options = {
     ],
   },
   // Aqui indicamos onde o Swagger deve procurar as anotações (nos seus arquivos de rota)
-  apis: ['./src/routes/*.js'], 
+  apis: [
+      './src/swagger/swagger.yaml', 
+      './src/swagger/components/*.yaml', 
+      './src/swagger/paths/*.yaml'
+    ],
 };
 
 const swaggerSpec = swaggerJsDoc(options);

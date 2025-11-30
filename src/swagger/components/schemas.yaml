@@ -1,0 +1,66 @@
+components:
+  schemas:
+    ItemPedidoInput:
+      type: object
+      required:
+        - itemCardapioId
+        - quantidade
+      properties:
+        itemCardapioId:
+          type: integer
+          description: ID do item do cardápio
+          example: 10
+        quantidade:
+          type: integer
+          description: Quantidade do item
+          example: 2
+
+    AdicionalInput:
+      type: object
+      required:
+        - adicionalId
+      properties:
+        adicionalId:
+          type: integer
+          description: ID do ingrediente adicional
+          example: 5
+        quantidade:
+          type: integer
+          description: Quantidade do adicional (Padrão 1)
+          example: 1
+
+    PedidoInput:
+      type: object
+      required:
+        - contaId
+        - clienteId
+        - itens
+      properties:
+        contaId:
+          type: integer
+          description: ID da conta da mesa
+        clienteId:
+          type: integer
+          description: ID do cliente
+        itens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPedidoInput'
+      example:
+        contaId: 1
+        clienteId: 5
+        itens:
+          - itemCardapioId: 10
+            quantidade: 2
+
+    Pedido:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          example: "PENDENTE"
+        horarioPedido:
+          type: string
+          format: date-time

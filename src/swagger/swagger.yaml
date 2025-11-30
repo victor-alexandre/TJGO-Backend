@@ -1,0 +1,11 @@
+openapi: 3.0.0
+info:
+  title: API Garçom Eletrônico
+  version: 1.0.0
+  description: API para gerenciamento de pedidos e cozinha.
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+tags:
+  - name: Pedidos
+    description: Gerenciamento de pedidos e seus itens
