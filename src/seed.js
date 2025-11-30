@@ -1,8 +1,7 @@
 // src/seed.js
 const { sequelize } = require('./models');
 
-// --- ÁREA DE IMPORTAÇÃO (AJUSTADA) ---
-// Note que agora importamos com o nome novo do arquivo
+// --- Importando os arquivos de seeds que foram separados ---
 const seedRestauranteUsuarios = require('./seeds/01_restaurante_e_usuarios');
 const seedMesas = require('./seeds/02_mesas');
 const seedCardapio = require('./seeds/03_cardapio');
@@ -16,13 +15,8 @@ async function runSeeds() {
         console.log('--------------------------------------------------');
 
         // 2. Execução Sequencial
-
-        // Chama a função do arquivo renomeado (01_restaurante_e_usuarios.js)
         const { restaurante, gerente, garcom } = await seedRestauranteUsuarios();
-        
-        // O resto continua igual, pois depende dos objetos retornados acima
         const mesas = await seedMesas(restaurante, garcom);
-        
         const itensDoCardapio = await seedCardapio(gerente);
         
         await seedPedidos(mesas, itensDoCardapio);

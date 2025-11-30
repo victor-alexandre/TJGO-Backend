@@ -3,10 +3,11 @@
 const express = require('express');
 const { sequelize } = require('./models');
 const pedidosRoutes = require('./routes/pedidosRoutes');
+const itemCardapioRoutes = require('./routes/itemCardapioRoutes');
 
 // --- INÍCIO CONFIG SWAGGER ---
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./config/swagger'); // Importa o arquivo de configuração que criamos
+const swaggerSpec = require('./config/swagger');
 // --- FIM CONFIG SWAGGER ---
 
 const app = express();
@@ -26,6 +27,8 @@ app.get('/', (req, res) => {
 app.use('/pedidos', pedidosRoutes);
 app.use('/itens-cardapio', itemCardapioRoutes);
 
+
+//Startando o Servidor
 async function iniciarServidor() {
     try {
         await sequelize.authenticate();
