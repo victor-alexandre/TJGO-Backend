@@ -1,0 +1,136 @@
+paths:
+  /cozinha/pedidos/pendentes:
+    get:
+      summary: Lista todos os pedidos pendentes
+      tags:
+        - Cozinha
+      responses:
+        200:
+          description: Lista de pedidos pendentes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedido'
+        500:
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /cozinha/pedidos/{id}/iniciar:
+    patch:
+      summary: Inicia a preparação de um pedido
+      tags:
+        - Cozinha
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do pedido
+      responses:
+        200:
+          description: Pedido iniciado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePedido'
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        409:
+          description: Pedido não pode ser iniciado neste status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /cozinha/pedidos/{id}/pronto:
+    patch:
+      summary: Marca o pedido como pronto
+      tags:
+        - Cozinha
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do pedido
+      responses:
+        200:
+          description: Pedido pronto para entrega
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePedido'
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        409:
+          description: Pedido não está em preparação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /cozinha/pedidos/{id}/entregar:
+    patch:
+      summary: Entrega o pedido ao cliente
+      tags:
+        - Cozinha
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID do pedido
+      responses:
+        200:
+          description: Pedido entregue com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePedido'
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        409:
+          description: Pedido não está pronto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
