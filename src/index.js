@@ -5,6 +5,7 @@ const { sequelize } = require('./models');
 const pedidosRoutes = require('./routes/pedidosRoutes');
 const itemCardapioRoutes = require('./routes/itemCardapioRoutes');
 const cozinhaRoutes = require('./routes/cozinhaRoutes');
+const contasRoutes = require('./routes/contasRoutes');
 
 // --- INÍCIO CONFIG SWAGGER ---
 const swaggerUi = require('swagger-ui-express');
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.use('/pedidos', pedidosRoutes);
 app.use('/itens-cardapio', itemCardapioRoutes);
 app.use('/cozinha', cozinhaRoutes);
+app.use('/contas', contasRoutes);
 
 
 //Startando o Servidor
