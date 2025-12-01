@@ -200,11 +200,11 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 | POST | `/contas/:id/desconto` | Aplica desconto (valor fixo ou %) | Renato | ✅ OK |
 
 ### 6. Caixa & Pagamento
-| Método | Rota | Lógica / Descrição | Status |
-| :--- | :--- | :--- | :--- |
-| GET | `/caixa/contas/abertas` | Lista contas que pediram fechamento | ⏳ A Fazer |
-| POST | `/caixa/pagamentos` | Processa o pagamento efetivo | ⏳ A Fazer |
-| CRUD | `/formas-pagamento` | Gerenciar tipos (Pix, Crédito, VR, etc) | ⏳ A Fazer |
+| Método | Rota | Lógica / Descrição | Resp. | Status |
+| :----- | :--- | :---------------- | :--- | :----- |
+| GET | `/caixa/contas/abertas` | Lista contas que pediram fechamento | Renato | ✅ OK |
+| POST | `/caixa/pagamentos` | Processa o pagamento efetivo | Renato | ✅ OK |
+| CRUD | `/formas-pagamento` | Gerenciar tipos (Pix, Crédito, VR, etc) | Renato | ⏳ EM ANDAMENTO  |
 
 ### 7. Relatórios (BI)
 | Método | Rota | Lógica / Descrição | Status |
