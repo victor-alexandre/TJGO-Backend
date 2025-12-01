@@ -1,0 +1,270 @@
+paths:
+  /contas/{mesaId}/resumo:
+    get:
+      summary: Consulta parcial (pré-conta) da mesa
+      description: Retorna o resumo da conta de uma mesa, incluindo pedidos, itens e totais.
+      tags:
+        - Contas
+      parameters:
+        - in: path
+          name: mesaId
+          required: true
+          schema:
+            type: integer
+          description: ID da mesa
+      responses:
+        '200':
+          description: Resumo da conta da mesa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mesaId:
+                    type: integer
+                  numeroMesa:
+                    type: integer
+                  contaId:
+                    type: integer
+                  status:
+                    type: string
+                  pedidos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        pedidoId:
+                          type: integer
+                        status:
+                          type: string
+                        itens:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              nome:
+                                type: string
+                              descricao:
+                                type: string
+                              quantidade:
+                                type: number
+                              precoUnitario:
+                                type: number
+                              subtotal:
+                                type: number
+                  resumo:
+                    type: object
+                    properties:
+                      valorBruto:
+                        type: number
+                      descontoValor:
+                        type: number
+                      descontoPercentual:
+                        type: number
+                      valorFinal:
+                        type: number
+        '404':
+          description: Mesa ou conta não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno ao buscar resumo da conta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /contas/{id}/dividir:
+    post:
+      summary: Simula divisão da conta entre X pessoas
+      tags:
+        - Contas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID da conta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - pessoas
+              properties:
+                pessoas:
+                  type: integer
+                  example: 3
+      responses:
+        '200':
+          description: Resultado da simulação de divisão
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contaId:
+                    type: integer
+                  pessoas:
+                    type: integer
+                  valorTotal:
+                    type: number
+                  valorPorPessoa:
+                    type: number
+        '400':
+          description: Número de pessoas inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conta não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro ao dividir conta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /contas/{id}/desconto:
+    post:
+      summary: Aplica desconto (valor fixo ou %) na conta
+      tags:
+        - Contas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID da conta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - tipo
+                - valor
+              properties:
+                tipo:
+                  type: string
+                  enum: [VALOR, PERCENTUAL]
+                  example: PERCENTUAL
+                valor:
+                  type: number
+                  example: 10
+      responses:
+        '200':
+          description: Desconto aplicado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Desconto aplicado com sucesso.
+                  conta:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      status:
+                        type: string
+                      valorBruto:
+                        type: number
+                      descontoValor:
+                        type: number
+                      descontoPercentual:
+                        type: number
+                      valorFinal:
+                        type: number
+        '400':
+          description: Dados de desconto inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conta não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Status da conta não permite aplicação de desconto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro ao aplicar desconto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /contas/{id}/fechamento:
+    post:
+      summary: Encerra a conta e envia para o caixa
+      tags:
+        - Contas
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID da conta
+      responses:
+        '200':
+          description: Conta enviada para o caixa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Conta enviada para o caixa.
+                  conta:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      status:
+                        type: string
+                        example: AGUARDANDO_PAGAMENTO
+                      valorFinal:
+                        type: number
+                      mesaId:
+                        type: integer
+        '404':
+          description: Conta não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Status da conta não permite fechamento
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro ao solicitar fechamento
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
