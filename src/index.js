@@ -6,6 +6,7 @@ const pedidosRoutes = require('./routes/pedidosRoutes');
 const itemCardapioRoutes = require('./routes/itemCardapioRoutes');
 const cozinhaRoutes = require('./routes/cozinhaRoutes');
 const contasRoutes = require('./routes/contasRoutes');
+const caixaRoutes = require('./routes/caixaRoutes');
 
 // --- INÍCIO CONFIG SWAGGER ---
 const swaggerUi = require('swagger-ui-express');
@@ -30,7 +31,7 @@ app.use('/pedidos', pedidosRoutes);
 app.use('/itens-cardapio', itemCardapioRoutes);
 app.use('/cozinha', cozinhaRoutes);
 app.use('/contas', contasRoutes);
-
+app.use('/caixa', caixaRoutes);
 
 //Startando o Servidor
 async function iniciarServidor() {
@@ -40,7 +41,7 @@ async function iniciarServidor() {
 
         app.listen(PORTA, () => {
             console.log(`Servidor rodando na porta ${PORTA}`);
-            console.log(`Rota principal: http://localhost:${PORTA}/`); 
+            console.log(`Rota principal: http://localhost:${PORTA}/`);
             console.log(`Swagger disponível em: http://localhost:${PORTA}/api-docs`);
         });
     } catch (error) {
