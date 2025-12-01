@@ -1,0 +1,63 @@
+paths:
+  /caixa/contas/abertas:
+    get:
+      summary: Lista contas aguardando pagamento (Fila do Caixa)
+      tags: [Caixa]
+      responses:
+        200:
+          description: Lista retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResumoContaCaixa'
+
+  /caixa/formas-pagamento:
+    get:
+      summary: Retorna os tipos de pagamento aceitos (ENUM)
+      tags: [Caixa]
+      responses:
+        200:
+          description: Lista de tipos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "Dinheiro"
+
+  /caixa/pagamentos:
+    post:
+      summary: Efetua o pagamento de uma conta
+      tags: [Caixa]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - contaId
+                - tipo
+                - valorPago
+              properties:
+                contaId:
+                  type: integer
+                tipo:
+                  type: string
+                  description: Um dos valores retornados em /formas-pagamento
+                valorPago:
+                  type: number
+                nro_transacao:
+                  type: string
+                numero_cheque:
+                  type: string
+      responses:
+        200:
+          description: Pagamento realizado com sucesso
+        400:
+          description: Valor insuficiente ou dados inválidos
+        409:
+          description: Conta não está aguardando pagamento

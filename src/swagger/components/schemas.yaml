@@ -144,3 +144,38 @@ components:
           type: string
         disponivelNaCozinha:
           type: boolean
+
+# -------------- CAIXA
+
+    ResumoContaCaixa:
+      type: object
+      properties:
+        contaId:
+          type: integer
+        mesaId:
+          type: integer
+        numeroMesa:
+          type: string
+        status:
+          type: string
+        valorBruto:
+          type: string
+          description: "Valor total dos itens (ex: '35.00')"
+        descontoValor:
+          type: string
+          description: "Desconto fixo (ex: '3.50')"
+        descontoPercentual:
+          type: string
+          description: "Desconto percentual (ex: '10.00')"
+        valorFinal:
+          type: string
+          description: "Valor final a pagar (ex: '31.50')"
+        pedidos:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              status:
+                type: string
