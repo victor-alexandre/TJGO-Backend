@@ -193,7 +193,7 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 
 ### 5. Mesa & Conta
 | Método | Rota | Lógica / Descrição | Resp. | Status |
-| :--- | :--- | :--- | :--- |
+| :----- | :--- | :---------------- | :--- | :----- |
 | GET | `/contas/:mesaId/resumo` | Consulta parcial (pré-conta) | Renato | ✅ OK |
 | POST | `/contas/:id/dividir` | Simula divisão da conta entre X pessoas | Renato | ✅ OK |
 | POST | `/contas/:id/fechamento` | Encerra a mesa e envia ordem para o Caixa | Renato | ✅ OK |
