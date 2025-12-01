@@ -192,12 +192,12 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 | PATCH  | /cozinha/pedidos/:id/entregar| Finaliza o ciclo do pedido (Entregue) | Solenir | ✅ OK |
 
 ### 5. Mesa & Conta
-| Método | Rota | Lógica / Descrição | Status |
+| Método | Rota | Lógica / Descrição | Resp. | Status |
 | :--- | :--- | :--- | :--- |
-| GET | `/contas/:mesaId/resumo` | Consulta parcial (pré-conta) | ⏳ A Fazer |
-| POST | `/contas/:id/dividir` | Simula divisão da conta entre X pessoas | ⏳ A Fazer |
-| POST | `/contas/:id/fechamento` | Encerra a mesa e envia ordem para o Caixa | ⏳ A Fazer |
-| POST | `/contas/:id/desconto` | Aplica desconto (valor fixo ou %) | ⏳ A Fazer |
+| GET | `/contas/:mesaId/resumo` | Consulta parcial (pré-conta) | Renato | ✅ OK |
+| POST | `/contas/:id/dividir` | Simula divisão da conta entre X pessoas | Renato | ✅ OK |
+| POST | `/contas/:id/fechamento` | Encerra a mesa e envia ordem para o Caixa | Renato | ✅ OK |
+| POST | `/contas/:id/desconto` | Aplica desconto (valor fixo ou %) | Renato | ✅ OK |
 
 ### 6. Caixa & Pagamento
 | Método | Rota | Lógica / Descrição | Status |
