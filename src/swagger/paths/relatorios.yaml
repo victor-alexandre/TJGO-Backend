@@ -1,0 +1,55 @@
+paths:
+  /relatorios/vendas-diarias:
+    get:
+      summary: Retorna o fluxo de caixa do dia
+      tags: [Relatórios]
+      parameters:
+        - in: query
+          name: data
+          schema:
+            type: string
+            format: date
+          description: Data no formato YYYY-MM-DD (Opcional, padrão é hoje)
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                  totalVendas:
+                    type: number
+                  quantidadeVendas:
+                    type: integer
+
+  /relatorios/por-forma-pagamento:
+    get:
+      summary: Retorna vendas agrupadas por tipo de pagamento (Pix, Cartão, etc)
+      tags: [Relatórios]
+      parameters:
+        - in: query
+          name: data
+          schema:
+            type: string
+            format: date
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resumoPorPagamento:
+                    type: object
+                    additionalProperties:
+                      type: number
+                    example:
+                      Cartao: 150.50
+                      Dinheiro: 50.00
+                      Pix: 200.00
+                  totalGeral:
+                    type: number

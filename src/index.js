@@ -7,6 +7,7 @@ const itemCardapioRoutes = require('./routes/itemCardapioRoutes');
 const cozinhaRoutes = require('./routes/cozinhaRoutes');
 const contasRoutes = require('./routes/contasRoutes');
 const caixaRoutes = require('./routes/caixaRoutes');
+const relatorioRoutes = require('./routes/relatorioRoutes');
 
 // --- INÍCIO CONFIG SWAGGER ---
 const swaggerUi = require('swagger-ui-express');
@@ -32,6 +33,7 @@ app.use('/itens-cardapio', itemCardapioRoutes);
 app.use('/cozinha', cozinhaRoutes);
 app.use('/contas', contasRoutes);
 app.use('/caixa', caixaRoutes);
+app.use('/relatorios', relatorioRoutes);
 
 //Startando o Servidor
 async function iniciarServidor() {
