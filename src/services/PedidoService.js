@@ -95,7 +95,7 @@ class PedidoService {
         }
 
         return await pedido.update({
-            status: 'EM_PREPARO'
+            status: 'EM_PREPARACAO'
         });
     }
 

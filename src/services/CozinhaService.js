@@ -6,11 +6,11 @@ class CozinhaService {
     async listarPendentes() {
         return Pedido.findAll({
             where: {
-                status: ['PENDENTE']
+                status: ['PENDENTE', 'EM_PREPARACAO']
             },
             include: [
                 { model: Conta, attributes: ['nome'], include: [{ model: Mesa, attributes: ['numero'] }] },
-                { 
+                {
                     model: ItemPedido,
                     as: 'linhasDoPedido',
                     attributes: ['id', 'quantidade'],
@@ -25,13 +25,16 @@ class CozinhaService {
         const pedido = await Pedido.findByPk(id);
         if (!pedido) throw new Error('Pedido não encontrado');
 
+        if (pedido.status === 'EM_PREPARACAO') {
+            return pedido;
+        }
+
         if (pedido.status == 'PENDENTE') {
             pedido.status = 'EM_PREPARACAO';
-           
         }
-        else{
+        else {
             throw new Error('Pedido não pode ser iniciado neste status');
-        }      
+        }
         return await pedido.save();
     }
 
