@@ -53,3 +53,35 @@ paths:
                       Pix: 200.00
                   totalGeral:
                     type: number
+
+  /relatorios/vendas-mensais:
+    get:
+      summary: Retorna o consolidado financeiro do mês
+      tags: [Relatórios]
+      parameters:
+        - in: query
+          name: mes
+          schema:
+            type: integer
+          description: Mês (1-12). Padrão é o mês atual.
+        - in: query
+          name: ano
+          schema:
+            type: integer
+          description: Ano (ex. 2023). Padrão é o ano atual.
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mes:
+                    type: integer
+                  ano:
+                    type: integer
+                  totalVendas:
+                    type: number
+                  quantidadeVendas:
+                    type: integer
