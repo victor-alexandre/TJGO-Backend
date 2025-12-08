@@ -4,15 +4,15 @@ Repositório com as atividades feitas na Disciplina de Backend da UFG em colabor
 
 ### 📑 Índice
 
-* [📝 Organização do Documento](#-organização-do-documento)
-* [👥 Membros do Grupo](#-membros-do-grupo)
-* [🛠️ Tecnologias Utilizadas](#-tecnologias-utilizadas)
-* [📋 Estrutura do Projeto](#-estrutura-do-projeto)
-* [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
-* [📖 Testando a API (Swagger)](#-testando-a-api-swagger)
-* [🧪 Testando a API (Postman/Insomnia)](#-testando-a-api-postman-insomnia)
-* [📅 Cronograma de Desenvolvimento](#-cronograma-de-desenvolvimento)
-* [📌 Status das Rotas da API](#-status-das-rotas-da-api)
+- [📝 Organização do Documento](#-organização-do-documento)
+- [👥 Membros do Grupo](#-membros-do-grupo)
+- [🛠️ Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [📋 Estrutura do Projeto](#-estrutura-do-projeto)
+- [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
+- [📖 Testando a API (Swagger)](#-testando-a-api-swagger)
+- [🧪 Testando a API (Postman/Insomnia)](#-testando-a-api-postman-insomnia)
+- [📅 Cronograma de Desenvolvimento](#-cronograma-de-desenvolvimento)
+- [📌 Status das Rotas da API](#-status-das-rotas-da-api)
 
 ---
 
@@ -20,10 +20,10 @@ Repositório com as atividades feitas na Disciplina de Backend da UFG em colabor
 
 Este README foi estruturado para guiar desde a apresentação do time até o acompanhamento técnico do projeto:
 
-1.  **Visão Geral:** Apresentação do time e *stack* tecnológica.
-2.  **Guia Técnico:** Arquitetura de pastas e passo a passo para instalação, população do banco (*seed*) e execução.
+1.  **Visão Geral:** Apresentação do time e _stack_ tecnológica.
+2.  **Guia Técnico:** Arquitetura de pastas e passo a passo para instalação, população do banco (_seed_) e execução.
 3.  **Testes:** Instruções para consumir a API via Swagger (Documentação Interativa) ou ferramentas externas.
-4.  **Gestão do Projeto:** Tabelas de controle que monitoram o cronograma geral e o status específico de implementação de cada *endpoint*.
+4.  **Gestão do Projeto:** Tabelas de controle que monitoram o cronograma geral e o status específico de implementação de cada _endpoint_.
 
 ---
 
@@ -56,7 +56,9 @@ A aplicação segue o padrão MVC (Model-View-Controller), focando na camada de 
 │   ├── controllers/    # Camada de Controle (Req/Res)
 │   ├── models/         # Definição das Classes de Domínio (Tabelas)
 │   ├── routes/         # Definição das Rotas da API
+│   ├── seeds/          # Dados iniciais do sistema
 │   ├── services/       # Regras de Negócio
+│   ├── swagger/        # Documentação da API
 │   ├── index.js        # Entrypoint do servidor
 │   ├── sync.js         # Script para sincronização de tabelas (reset/update)
 │   └── seed.js         # Script para popular o banco com dados de teste
@@ -112,6 +114,7 @@ Com o servidor rodando, acesse em seu navegador:
 👉 **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)**
 
 Lá você poderá:
+
 - Visualizar todos os endpoints disponíveis.
 - Consultar os esquemas de dados (JSON) esperados.
 - **Testar as requisições ("Try it out")** diretamente pelo navegador sem precisar de ferramentas externas.
@@ -126,90 +129,96 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 
 (As demais rotas CRUD serão implementadas nas próximas etapas do trabalho).
 
-
 ---
 
 ## 📅 Cronograma de Desenvolvimento
 
-| Etapa | Atividade / Tarefa | Responsável | Status |
-| :--- | :--- | :--- | :--- |
-| **1. Configuração** | Configuração do Repositório e Estrutura de Pastas (MVC) | Owen | ✅ Concluído |
-| **1. Configuração** | Configuração do Banco de Dados (Sequelize + SQLite) | Owen | ✅ Concluído |
-| **1. Configuração** | Scripts de Banco (`seed.js` e `sync.js`) | Owen | ✅ Concluído |
-| **1. Configuração** | Instalação de Dependências (`express`, `swagger`, `nodemon`) | Owen/Victor | ✅ Concluído |
-| | | | |
-| **2. Definição** | Levantamento de Requisitos (Definição da Planilha de Rotas) | Todos | ✅ Concluído |
-| | | | |
-| **3. Implementação** | Codificação dos Controllers e Services base | Todos | 🔄 Em Andamento |
-| **3. Implementação** | CRUD Básico (Cardápio, Categorias e Mesas) | - | ⏳ A Fazer |
-| **3. Implementação** | Regras de Negócio (Pedidos, Cozinha e Fechamento de Conta) | - | ⏳ A Fazer |
-| | | | |
-| **4. Qualidade** | Substituir `console.error` por Respostas HTTP Padronizadas | - | ⏳ A Fazer |
-| **4. Qualidade** | Tratamento de 404 (IDs não encontrados) | - | ⏳ A Fazer |
-| **4. Qualidade** | Tratamento de 400 (Dados incompletos no Body) | - | ⏳ A Fazer |
-| | | | |
-| **5. Documentação** | Adicionar anotações `@swagger` em todas as rotas | - | ⏳ A Fazer |
-| **5. Documentação** | Atualização final do README.md | - | ⏳ A Fazer |
-| | | | |
-| **6. Teste Final** | Teste de Fluxo Completo (Pedido -> Cozinha -> Pagamento) | Todos | ⏳ A Fazer |
-| **6. Teste Final** | Testes de Exceção (Enviar dados errados propositalmente) | - | ⏳ A Fazer |
+| Etapa                | Atividade / Tarefa                                           | Responsável | Status       |
+| :------------------- | :----------------------------------------------------------- | :---------- | :----------- |
+| **1. Configuração**  | Configuração do Repositório e Estrutura de Pastas (MVC)      | Owen        | ✅ Concluído |
+| **1. Configuração**  | Configuração do Banco de Dados (Sequelize + SQLite)          | Owen        | ✅ Concluído |
+| **1. Configuração**  | Scripts de Banco (`seed.js` e `sync.js`)                     | Owen        | ✅ Concluído |
+| **1. Configuração**  | Instalação de Dependências (`express`, `swagger`, `nodemon`) | Owen/Victor | ✅ Concluído |
+|                      |                                                              |             |              |
+| **2. Definição**     | Levantamento de Requisitos (Definição da Planilha de Rotas)  | Todos       | ✅ Concluído |
+|                      |                                                              |             |              |
+| **3. Implementação** | Codificação dos Controllers e Services base                  | Todos       | ✅ Concluído |
+| **3. Implementação** | CRUD Básico (Cardápio, Categorias e Mesas)                   | -           | ✅ Concluído |
+| **3. Implementação** | Regras de Negócio (Pedidos, Cozinha e Fechamento de Conta)   | -           | ✅ Concluído |
+|                      |                                                              |             |              |
+| **4. Qualidade**     | Substituir `console.error` por Respostas HTTP Padronizadas   | -           | ✅ Concluído |
+| **4. Qualidade**     | Tratamento de 404 (IDs não encontrados)                      | -           | ✅ Concluído |
+| **4. Qualidade**     | Tratamento de 400 (Dados incompletos no Body)                | -           | ✅ Concluído |
+|                      |                                                              |             |              |
+| **5. Documentação**  | Adicionar anotações `@swagger` em todas as rotas             | -           | ✅ Concluído |
+| **5. Documentação**  | Atualização final do README.md                               | -           | ✅ Concluído |
+|                      |                                                              |             |              |
+| **6. Teste Final**   | Teste de Fluxo Completo (Pedido -> Cozinha -> Pagamento)     | Todos       | ✅ Concluído |
+| **6. Teste Final**   | Testes de Exceção (Enviar dados errados propositalmente)     | -           | ✅ Concluído |
 
 ---
 
 ## 📌 Status das Rotas da API
 
 ### 1. Pedidos (Core)
-| Método | Rota | Lógica / Descrição | Resp. | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| POST | `/pedidos` | Cria pedido inicial (vincula Mesa/Cliente) | Owen | ✅ OK |
-| GET | `/pedidos` | Lista pedidos (filtros: status, data, mesa) | Owen | ✅ OK |
-| PUT | `/pedidos/:id` | Atualiza dados gerais do pedido | Victor | ✅ OK |
-| DELETE | `/pedidos/:id` | Cancela pedido (apenas se não enviado à cozinha) | Victor | ✅ OK |
-| POST | `/pedidos/:id/enviar-cozinha` | Muda status para "Enviado" e notifica cozinha | Victor | ✅ OK |
+
+| Método | Rota                          | Lógica / Descrição                               | Resp.  | Status |
+| :----- | :---------------------------- | :----------------------------------------------- | :----- | :----- |
+| POST   | `/pedidos`                    | Cria pedido inicial (vincula Mesa/Cliente)       | Owen   | ✅ OK  |
+| GET    | `/pedidos`                    | Lista pedidos (filtros: status, data, mesa)      | Owen   | ✅ OK  |
+| PUT    | `/pedidos/:id`                | Atualiza dados gerais do pedido                  | Victor | ✅ OK  |
+| DELETE | `/pedidos/:id`                | Cancela pedido (apenas se não enviado à cozinha) | Victor | ✅ OK  |
+| POST   | `/pedidos/:id/enviar-cozinha` | Muda status para "Enviado" e notifica cozinha    | Victor | ✅ OK  |
 
 ### 2. Itens & Adicionais
-| Método | Rota | Lógica / Descrição | Status |
-| :--- | :--- | :--- | :--- |
-| POST | `/pedidos/:id/itens` | Adiciona um item do cardápio ao pedido | ⏳ A Fazer |
-| POST | `/pedidos/:id/adicionais` | Adiciona item extra (ex: +bacon) a um item | ⏳ A Fazer |
-| PUT | `/pedidos/:id/adicionais/:addId` | Altera qtd ou tipo do adicional | ⏳ A Fazer |
-| DELETE | `/pedidos/:id/adicionais/:addId` | Remove o adicional do pedido | ⏳ A Fazer |
+
+| Método | Rota                             | Lógica / Descrição                         | Resp. | Status |
+| :----- | :------------------------------- | :----------------------------------------- | :---- | :----- |
+| POST   | `/pedidos/:id/itens`             | Adiciona um item do cardápio ao pedido     | Owen  | ✅ OK  |
+| POST   | `/pedidos/:id/adicionais`        | Adiciona item extra (ex: +bacon) a um item | Owen  | ✅ OK  |
+| PUT    | `/pedidos/:id/adicionais/:addId` | Altera qtd ou tipo do adicional            | Owen  | ✅ OK  |
+| DELETE | `/pedidos/:id/adicionais/:addId` | Remove o adicional do pedido               | Owen  | ✅ OK  |
 
 ### 3. Cardápio (Backoffice)
-| Método | Rota | Lógica / Descrição | Status |
-| :--- | :--- | :--- | :--- |
-| POST | `/itens-cardapio` | Cadastra novo prato/bebida | ⏳ A Fazer |
-| PUT | `/itens-cardapio/:id` | Atualiza nome, preço ou descrição | ⏳ A Fazer |
-| GET | `/itens-cardapio` | Lista tudo (pode filtrar por categoria) | ⏳ A Fazer |
-| GET | `/itens-cardapio/disponiveis` | Lista apenas itens com estoque > 0 | ⏳ A Fazer |
+
+| Método | Rota                          | Lógica / Descrição                      | Resp.  | Status |
+| :----- | :---------------------------- | :-------------------------------------- | :----- | :----- |
+| POST   | `/itens-cardapio`             | Cadastra novo prato/bebida              | Victor | ✅ OK  |
+| PUT    | `/itens-cardapio/:id`         | Atualiza nome, preço ou descrição       | Victor | ✅ OK  |
+| GET    | `/itens-cardapio`             | Lista tudo (pode filtrar por categoria) | Victor | ✅ OK  |
+| GET    | `/itens-cardapio/disponiveis` | Lista apenas itens com estoque > 0      | Victor | ✅ OK  |
 
 ### 4. Cozinha (KDS)
-| Método | Rota | Lógica / Descrição | Resp. | Status |
-| :----- | :--- | :---------------- | :--- | :----- |
-| GET    | /cozinha/pedidos/pendentes | Lista fila de produção (novos e em espera) | Solenir | ✅ OK |
-| PATCH  | /cozinha/pedidos/:id/iniciar | Marca status como "Em Preparação" | Solenir | ✅ OK |
-| PATCH  | /cozinha/pedidos/:id/pronto  | Avisa garçom que está pronto para entrega | Solenir | ✅ OK |
-| PATCH  | /cozinha/pedidos/:id/entregar| Finaliza o ciclo do pedido (Entregue) | Solenir | ✅ OK |
+
+| Método | Rota                          | Lógica / Descrição                         | Resp.   | Status |
+| :----- | :---------------------------- | :----------------------------------------- | :------ | :----- |
+| GET    | /cozinha/pedidos/pendentes    | Lista fila de produção (novos e em espera) | Solenir | ✅ OK  |
+| PATCH  | /cozinha/pedidos/:id/iniciar  | Marca status como "Em Preparação"          | Solenir | ✅ OK  |
+| PATCH  | /cozinha/pedidos/:id/pronto   | Avisa garçom que está pronto para entrega  | Solenir | ✅ OK  |
+| PATCH  | /cozinha/pedidos/:id/entregar | Finaliza o ciclo do pedido (Entregue)      | Solenir | ✅ OK  |
 
 ### 5. Mesa & Conta
-| Método | Rota | Lógica / Descrição | Resp. | Status |
-| :----- | :--- | :---------------- | :--- | :----- |
-| GET | `/contas/:mesaId/resumo` | Consulta parcial (pré-conta) | Renato | ✅ OK |
-| POST | `/contas/:id/dividir` | Simula divisão da conta entre X pessoas | Renato | ✅ OK |
-| POST | `/contas/:id/fechamento` | Encerra a mesa e envia ordem para o Caixa | Renato | ✅ OK |
-| POST | `/contas/:id/desconto` | Aplica desconto (valor fixo ou %) | Renato | ✅ OK |
+
+| Método | Rota                     | Lógica / Descrição                        | Resp.  | Status |
+| :----- | :----------------------- | :---------------------------------------- | :----- | :----- |
+| GET    | `/contas/:mesaId/resumo` | Consulta parcial (pré-conta)              | Renato | ✅ OK  |
+| POST   | `/contas/:id/dividir`    | Simula divisão da conta entre X pessoas   | Renato | ✅ OK  |
+| POST   | `/contas/:id/fechamento` | Encerra a mesa e envia ordem para o Caixa | Renato | ✅ OK  |
+| POST   | `/contas/:id/desconto`   | Aplica desconto (valor fixo ou %)         | Renato | ✅ OK  |
 
 ### 6. Caixa & Pagamento
-| Método | Rota | Lógica / Descrição | Resp. | Status |
-| :----- | :--- | :---------------- | :--- | :----- |
-| GET | `/caixa/contas/abertas` | Lista contas que pediram fechamento | Renato | ✅ OK |
-| POST | `/caixa/pagamentos` | Processa o pagamento efetivo | Renato | ✅ OK |
-| CRUD | `/formas-pagamento` | Gerenciar tipos (Pix, Crédito, VR, etc) | Renato | ⏳ EM ANDAMENTO  |
+
+| Método | Rota                    | Lógica / Descrição                      | Resp.  | Status          |
+| :----- | :---------------------- | :-------------------------------------- | :----- | :-------------- |
+| GET    | `/caixa/contas/abertas` | Lista contas que pediram fechamento     | Renato | ✅ OK           |
+| POST   | `/caixa/pagamentos`     | Processa o pagamento efetivo            | Renato | ✅ OK           |
+| CRUD   | `/formas-pagamento`     | Gerenciar tipos (Pix, Crédito, VR, etc) | Renato | ⏳ EM ANDAMENTO |
 
 ### 7. Relatórios (BI)
-| Método | Rota | Lógica / Descrição | Status |
-| :--- | :--- | :--- | :--- |
-| GET | `/relatorios/itens-mais-pedidos` | Estatísticas de popularidade (Ranking) | ⏳ A Fazer |
-| GET | `/relatorios/vendas-mensais` | Consolidado financeiro por mês | ⏳ A Fazer |
-| GET | `/relatorios/vendas-diarias` | Fluxo de caixa do dia | ⏳ A Fazer |
-| GET | `/relatorios/por-forma-pagamento` | Total por Pix vs Crédito vs Dinheiro | ⏳ A Fazer |
+
+| Método | Rota                              | Lógica / Descrição                     | Resp.  | Status |
+| :----- | :-------------------------------- | :------------------------------------- | :----- | :----- |
+| GET    | `/relatorios/itens-mais-pedidos`  | Estatísticas de popularidade (Ranking) | Owen   | ✅ OK  |
+| GET    | `/relatorios/vendas-mensais`      | Consolidado financeiro por mês         | Owen   | ✅ OK  |
+| GET    | `/relatorios/vendas-diarias`      | Fluxo de caixa do dia                  | Victor | ✅ OK  |
+| GET    | `/relatorios/por-forma-pagamento` | Total por Pix vs Crédito vs Dinheiro   | Victor | ✅ OK  |
