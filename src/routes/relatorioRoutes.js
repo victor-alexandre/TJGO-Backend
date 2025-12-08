@@ -6,5 +6,6 @@ const router = express.Router();
 
 router.get('/vendas-diarias', RelatorioController.vendasDiarias);
 router.get('/por-forma-pagamento', RelatorioController.porFormaPagamento);
+router.get('/vendas-mensais', RelatorioController.vendasMensais);
 
 module.exports = router;

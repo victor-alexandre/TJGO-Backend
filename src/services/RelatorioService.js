@@ -45,8 +45,8 @@ class RelatorioService {
         const contas = await Conta.findAll({
             where: { status: 'PAGA' },
             include: [
-                { 
-                    model: Pagamento, 
+                {
+                    model: Pagamento,
                     required: true,
                     attributes: ['tipo'] // Só precisamos do tipo
                 },
@@ -61,7 +61,7 @@ class RelatorioService {
         const resumo = contas.reduce((acc, conta) => {
             const tipo = conta.Pagamento ? conta.Pagamento.tipo : 'Outros';
             if (!acc[tipo]) acc[tipo] = 0;
-            
+
             acc[tipo] += conta.valorFinal;
             return acc;
         }, {});
@@ -72,6 +72,36 @@ class RelatorioService {
             data: dataString,
             resumoPorPagamento: resumo,
             totalGeral: parseFloat(totalGeral.toFixed(2))
+        };
+    }
+
+    async vendasMensais(mes, ano) {
+        const inicioMes = new Date(Date.UTC(ano, mes - 1, 1, 0, 0, 0, 0));
+        const fimMes = new Date(Date.UTC(ano, mes, 0, 23, 59, 59, 999));
+
+        const contas = await Conta.findAll({
+            where: {
+                status: 'PAGA',
+            },
+            include: [
+                {
+                    model: Pedido,
+                    required: true,
+                    where: {
+                        horarioPedido: { [Op.between]: [inicioMes, fimMes] }
+                    },
+                    attributes: []
+                }
+            ]
+        });
+
+        const totalVendas = contas.reduce((acc, conta) => acc + conta.valorFinal, 0);
+
+        return {
+            mes: Number(mes),
+            ano: Number(ano),
+            totalVendas: parseFloat(totalVendas.toFixed(2)),
+            quantidadeVendas: contas.length
         };
     }
 }
