@@ -42,6 +42,16 @@ class RelatorioController {
             return res.status(500).json({ error: 'Erro ao gerar relatório mensal.' });
         }
     }
+
+    async itensMaisPedidos(req, res) {
+        try {
+            const ranking = await RelatorioService.itensMaisPedidos();
+            return res.json(ranking);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Erro ao gerar ranking de itens.' });
+        }
+    }
 }
 
 module.exports = new RelatorioController();

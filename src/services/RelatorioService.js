@@ -1,5 +1,5 @@
 // src/services/RelatorioService.js
-const { Conta, Pagamento, Pedido, Sequelize } = require('../models');
+const { Conta, Pagamento, Pedido, ItemPedido, ItemCardapio, sequelize } = require('../models');
 const { Op } = require('sequelize');
 
 class RelatorioService {
@@ -103,6 +103,30 @@ class RelatorioService {
             totalVendas: parseFloat(totalVendas.toFixed(2)),
             quantidadeVendas: contas.length
         };
+    }
+
+    async itensMaisPedidos() {
+        const itens = await ItemPedido.findAll({
+            attributes: [
+                'itemCardapioId',
+                [sequelize.fn('SUM', sequelize.col('quantidade')), 'totalVendido']
+            ],
+            include: [
+                {
+                    model: ItemCardapio,
+                    attributes: ['nome', 'preco', 'categoria']
+                }
+            ],
+            group: ['itemCardapioId'],
+            order: [[sequelize.literal('totalVendido'), 'DESC']],
+            limit: 5
+        });
+
+        return itens.map(item => ({
+            nome: item.ItemCardapio ? item.ItemCardapio.nome : 'Item Removido',
+            categoria: item.ItemCardapio ? item.ItemCardapio.categoria : 'N/A',
+            totalVendido: item.dataValues.totalVendido
+        }));
     }
 }
 
