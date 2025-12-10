@@ -1,5 +1,6 @@
 // src/services/ContaService.js
 const { Mesa, Conta, Pedido, ItemPedido, ItemCardapio } = require('../models');
+const { Op } = require('sequelize');
 
 class ContaService {
   /**
@@ -22,7 +23,7 @@ class ContaService {
         }
       ]
     });
-
+    
     // Calcular valor bruto (soma de todos os itens)
     let valorBruto = 0;
     pedidos.forEach(pedido => {
@@ -52,10 +53,9 @@ class ContaService {
 
   /**
    * GET /contas/:mesaId/resumo
-   * Retorna o resumo da conta de uma mesa (pré-conta)
+   * Retorna o resumo da conta ATIVA (ou a última fechada, se não houver ativa)
    */
   static async getResumoPorMesa(mesaId) {
-    // Verificar se a mesa existe
     const mesa = await Mesa.findByPk(mesaId);
     if (!mesa) {
       const error = new Error('Mesa não encontrada');
@@ -63,9 +63,12 @@ class ContaService {
       throw error;
     }
 
-    // Buscar conta da mesa
-    const conta = await Conta.findOne({
-      where: { mesaId },
+    // 2. Busca Inteligente: Prioriza conta ABERTA/AGUARDANDO
+    let conta = await Conta.findOne({
+      where: { 
+        mesaId,
+        status: { [Op.not]: 'PAGA' } 
+      },
       include: [
         {
           model: Pedido,
@@ -85,22 +88,47 @@ class ContaService {
       ]
     });
 
+    // 3. Fallback: Histórico recente
     if (!conta) {
-      const error = new Error('Nenhuma conta aberta para esta mesa');
+      conta = await Conta.findOne({
+        where: { mesaId },
+        order: [['id', 'DESC']], 
+        include: [
+          {
+            model: Pedido,
+            include: [
+              {
+                model: ItemPedido,
+                as: 'linhasDoPedido',
+                include: [
+                  {
+                    model: ItemCardapio,
+                    attributes: ['id', 'nome', 'preco', 'descricao']
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      });
+    }
+
+    if (!conta) {
+      const error = new Error('Nenhuma conta encontrada para esta mesa');
       error.statusCode = 404;
       throw error;
     }
 
-    // Calcular valores
     const { valorBruto, descontoAplicado, valorFinal, pedidos } = 
       await this.calcularValoresDaConta(conta);
 
-    // Atualizar conta com valores calculados
-    await conta.update({
-      valorBruto,
-      descontoValor: descontoAplicado,
-      valorFinal
-    });
+    if (conta.status !== 'PAGA') {
+      await conta.update({
+        valorBruto,
+        descontoValor: descontoAplicado,
+        valorFinal
+      });
+    }
 
     // Montar resumo detalhado
     const itensPorPedido = pedidos.map(pedido => ({
@@ -191,7 +219,7 @@ class ContaService {
       throw error;
     }
 
-    // Calcular valor bruto atualizado
+     // Calcular valor bruto atualizado
     const { valorBruto } = await this.calcularValoresDaConta(conta);
 
     let descontoValor = 0;
@@ -235,21 +263,36 @@ class ContaService {
    */
   static async solicitarFechamento(contaId) {
     const conta = await Conta.findByPk(contaId, {
-      include: [{ model: Mesa }]
+      include: [
+        { model: Mesa },
+        { model: Pedido } 
+      ]
     });
 
     if (!conta) {
       const error = new Error('Conta não encontrada');
-      error.statusCode;
+      error.statusCode = 404;
+      throw error;
     }
 
+    // 1. Validação de Status da Conta
     if (conta.status !== 'ABERTA') {
-      const error = new Error('Apenas contas abertas podem solicitar fechamento');
+      const error = new Error('Apenas contas abertas podem solicitar fechamento'); // MENSAGEM CORRIGIDA
       error.statusCode = 400;
       throw error;
     }
 
-    // Recalcular valores finais
+    // 2. Trava de Segurança (Pedidos Pendentes)
+    const statusConcluidos = ['ENTREGUE', 'FINALIZADO', 'CANCELADO'];
+    const listaPedidos = conta.Pedidos || conta.pedidos || [];
+    const pedidosPendentes = listaPedidos.filter(p => !statusConcluidos.includes(p.status));
+
+    if (pedidosPendentes.length > 0) {
+      const error = new Error(`Não é possível fechar a conta. Existem ${pedidosPendentes.length} pedido(s) pendentes/em preparo. Finalize-os primeiro.`);
+      error.statusCode = 409;
+      throw error;
+    }
+
     const { valorBruto, valorFinal } = await this.calcularValoresDaConta(conta);
 
     await conta.update({
@@ -258,7 +301,6 @@ class ContaService {
       valorFinal
     });
 
-    // Opcional: marcar mesa como indisponível
     if (conta.Mesa) {
       await conta.Mesa.update({ disponivel: false });
     }
