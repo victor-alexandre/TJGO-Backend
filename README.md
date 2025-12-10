@@ -212,7 +212,7 @@ GET http://localhost:3000/ -> Retorna mensagem de boas-vindas ("API Garçom Elet
 | :----- | :---------------------- | :-------------------------------------- | :----- | :------|
 | GET    | `/caixa/contas/abertas` | Lista contas que pediram fechamento     | Renato | ✅ OK  |
 | POST   | `/caixa/pagamentos`     | Processa o pagamento efetivo            | Renato | ✅ OK  |
-| GET    | `/formas-pagamento`     | Listas tipos (Dinheiro, Cartão, Cheque) | Renato | ✅ OK  |
+| GET    | `/formas-pagamento`     | Listar tipos (Dinheiro, Cartão, Cheque) | Renato | ✅ OK  |
 
 ### 7. Relatórios (BI)
 
